@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "An Amazon-esque Node app written to practice creating and manipulating MySQL databases.",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonathonMoore1/bamazon.git"
+  },
+  "author": "Jonathon Moore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonathonMoore1/bamazon/issues"
+  },
+  "homepage": "https://github.com/JonathonMoore1/bamazon#readme",
+  "dependencies": {
+    "mysql": "^2.15.0",
+    "prompt": "^1.0.0"
+  }
+}
