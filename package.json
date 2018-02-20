@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/JonathonMoore1/bamazon#readme",
   "dependencies": {
+    "dotenv": "^5.0.0",
+    "inquirer": "^5.1.0",
     "mysql": "^2.15.0",
     "prompt": "^1.0.0"
   }
