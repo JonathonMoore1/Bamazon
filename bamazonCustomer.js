@@ -23,34 +23,51 @@ function displayItems() {
             console.log('Item #' + res[i].item_id + ': ' + res[i].product_name + ', Price: $' + res[i].price.toFixed(2) + ' (' + res[i].department_name + ')');
             console.log('=============================================================================================================\n');
         }
-    })
-    selectItem();
-}
-
-function selectItem() {
-    inquirer
-    .prompt({
-        name: 'which', 
-        type: 'input', 
-        message: 'Which of these items would you like to purchase? Please enter the item number.\n',
-        validate: function (input) {
-           if (isNaN(input) === false) {
-               return true;
-           }
-           return false;
-        }
-    }).then(function(ans) {
-        connection.query('SELECT * FROM products WHERE item_id = ?', [{item_id: ans}], function(err, res) {
-            if (err) throw err;
-            console.log(res);
+    }).then(function() {
+        inquirer.prompt({
+            name:'selectedItem',
+            type: 'input',
+            message: 'Choose an item to purchase by selecting an item number',
+            validate: function(value) {
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                return false;
+            }
+        }).then(function(ans) {
+            var item = ans.selectedItem;
+            console.log(item);
         })
     })
 }
+
+displayItems();
+
+// inquirer.prompt({
+//     name: 'which', 
+//     type: 'input', 
+//     message: 'Which of these items would you like to purchase? Please enter the item number.\n',
+//     validate: function (input) {
+//         if (isNaN(input) === false) {
+//             return true;
+//         }
+//         return false;
+//     }
+// }).then(function(ans) {
+//     connection.query('SELECT * FROM products WHERE item_id = ?', {item_id: ans}, function(err, res) {
+//         if (err) throw err;
+//         console.log(res);
+//     })
+// })
+
+// function selectItem() {
+   
+// }
 
 // function start() {
 //     displayItems();
 // }
 // start();
 
-selectItem();
+// selectItem();
 connection.end();

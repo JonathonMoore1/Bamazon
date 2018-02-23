@@ -17,4 +17,8 @@ VALUES("Hitch-Hiker's Guide to the Galaxy", "Books", 23.95, 5),
     ("Accepting Your Mediocrity: A Guide for the Vain and Desperate", "Books", 10.99, 7),
     ("Pink Flamingos", "Music/Movies", 9.99, 10),
     ("Troubadour Starter Kit (Includes lute and panpipes)", "Musical Instruments/Equipment", 98.00, 3),
-    ("Dell 4k Monitor", "Computers/Electronics", 764.98, 12);
+    ("Dell 4k Monitor", "Computers/Electronics", 764.98, 12),
+    ("Half-dozen farm fresh eggs", "Food/Produce", 1.60, 33),
+    ("The Garden of Earthly Delights, Heironymus Bosch, c. 1490", "Art", 3500099.99, 1),
+    ("Juicy Fruit", "Food/Produce", 1.29, 50),
+    ("Violin, Pietro Guarneri, Venice 1722", "Musical Instruments/Equipment", 662850, 1);
