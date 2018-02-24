@@ -86,7 +86,7 @@ function selectItem() {
             var unitPrice = res[0].price.toFixed(2);
 
             // Call a function to process the order. Pass values in to be handled.
-            processOrder(stockQuantity, orderAmount, unitPrice, ans.selected);
+            processOrder(stockQuantity, orderAmount, unitPrice, ans.selection);
         })    
     })
 }
