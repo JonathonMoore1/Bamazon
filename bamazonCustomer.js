@@ -122,3 +122,4 @@ function displayTotal(val) {
     console.log('\n*** Total = $' + val + ' ***\n\nThank you for your purchase!');
     return;
 }
+// :)
