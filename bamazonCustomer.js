@@ -12,10 +12,13 @@ var connection = mysql.createConnection({
 });
 
 connection.connect(function(err) {
+    console.log('Connection successful');
     if (err) throw err;
-});
+    displayItems();  
+})
 
 function displayItems() {
+
     connection.query('SELECT * FROM products', function(err, res) {
         if (err) throw err;
         for (var i = 0; i < res.length; i++) {
@@ -23,51 +26,73 @@ function displayItems() {
             console.log('Item #' + res[i].item_id + ': ' + res[i].product_name + ', Price: $' + res[i].price.toFixed(2) + ' (' + res[i].department_name + ')');
             console.log('=============================================================================================================\n');
         }
-    }).then(function() {
-        inquirer.prompt({
-            name:'selectedItem',
+        selectItem();
+    })  
+}
+
+
+function selectItem() {
+    inquirer.prompt([
+        {
+            name: 'selection',
             type: 'input',
-            message: 'Choose an item to purchase by selecting an item number',
-            validate: function(value) {
-                if (isNaN(value) === false) {
+            message: '\nChoose an item to purchase. Please enter the item number.\n',
+            validate: function (input) {
+                if (isNaN(input) === false) {
                     return true;
                 }
                 return false;
             }
-        }).then(function(ans) {
-            var item = ans.selectedItem;
-            console.log(item);
+        },
+        {
+            name: 'quantity',
+            type: 'input',
+            message: 'How many would you like to purchase?',
+            validate: function (input) {
+                if (isNaN(input) === false) {
+                    return true;
+                }
+                return false;
+            }
+        }
+    ]).then(function (ans) {
+        console.log(ans.selection);
+        var query = 'SELECT * FROM products WHERE item_id = ' + ans.selection;
+        connection.query(query, function (err, res) {
+            if (err) throw err;
+
+            var choice = "Product: " + res[0].product_name + " || Price: $" + res[0].price.toFixed(2);
+            console.log(choice);
+
+            var stockQuantity = res[0].stock_quantity;
+            var orderAmount = ans.quantity;
+            var unitPrice = res[0].price.toFixed(2);
+
+            console.log(stockQuantity + "\n" + orderAmount);
+
+            processOrder(stockQuantity, orderAmount, unitPrice);
+
         })
+        connection.end();
     })
 }
 
-displayItems();
+function processOrder(a, b, c) {
+    if (a < b) {
+        console.log('Insufficient quantity. Please choose again.');
+        return false;
+    } 
 
-// inquirer.prompt({
-//     name: 'which', 
-//     type: 'input', 
-//     message: 'Which of these items would you like to purchase? Please enter the item number.\n',
-//     validate: function (input) {
-//         if (isNaN(input) === false) {
-//             return true;
-//         }
-//         return false;
-//     }
-// }).then(function(ans) {
-//     connection.query('SELECT * FROM products WHERE item_id = ?', {item_id: ans}, function(err, res) {
-//         if (err) throw err;
-//         console.log(res);
-//     })
-// })
+    var stockUpdate = a - b;
+    var query = 'UPDATE products WHERE '
+    connection.query(query, function(err, res) {
 
-// function selectItem() {
-   
-// }
+    })
+    
+    // else {
+    //     var total = b * c;
+    //     return console.log('Thank you for your purchase! Your total is: $' + total.toFixed(2));
 
-// function start() {
-//     displayItems();
-// }
-// start();
-
-// selectItem();
-connection.end();
+       
+    // }
+}
