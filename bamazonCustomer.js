@@ -12,8 +12,10 @@ var connection = mysql.createConnection({
 });
 
 connection.connect(function(err) {
-    console.log('Connection successful');
     if (err) throw err;
+    console.log('\n**************************************');
+    console.log('\n~~ ~~ ~~ Welcome to Bamazon! ~~ ~~ ~~\n');
+    console.log('**************************************\n');
     displayItems();  
 })
 
@@ -70,29 +72,33 @@ function selectItem() {
 
             console.log(stockQuantity + "\n" + orderAmount);
 
-            processOrder(stockQuantity, orderAmount, unitPrice);
+            processOrder(stockQuantity, orderAmount, unitPrice, ans.selected);
 
         })
-        connection.end();
+        
     })
 }
 
-function processOrder(a, b, c) {
+function processOrder(a, b, c, d) {
+    
     if (a < b) {
         console.log('Insufficient quantity. Please choose again.');
         return false;
     } 
 
     var stockUpdate = a - b;
-    var query = 'UPDATE products WHERE '
-    connection.query(query, function(err, res) {
+    var total = b * c;
 
+    var query = 'UPDATE products SET ? WHERE ?'
+    connection.query(query, [{stock_quantity: stockUpdate}, {item_id: d}], function(err, res) {
+        if (err) throw err;
+        console.log(res);
+        displayTotal(total);
     })
     
-    // else {
-    //     var total = b * c;
-    //     return console.log('Thank you for your purchase! Your total is: $' + total.toFixed(2));
+    connection.end();
+}
 
-       
-    // }
+function displayTotal(val) {
+    console.log('*** Total = $' + val + ' ***\nThank you for your purchase!');
 }
