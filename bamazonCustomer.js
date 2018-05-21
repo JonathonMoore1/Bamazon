@@ -1,15 +1,25 @@
 require('dotenv').config();
 var pw = process.env.MYSQL_PW;
+var jawsPW = process.env.JAWS_PW;
 
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 
-var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : pw,
-    database : 'bamazon_db'
-});
+var connection = mysql.createConnection(
+    // {
+    //     host: "yhrz9vns005e0734.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    //     user: "n30pbmgv0b3urj0w",
+    //     password: jawsPW,
+    //     port: 3306,
+    //     database: "sote809xii2c09qd"
+    // } ||
+     {
+        host : 'localhost',
+        user : 'root',
+        password : pw,
+        database : 'bamazon_db'
+    }
+);
 
 connection.connect(function(err) {
 
